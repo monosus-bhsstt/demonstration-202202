@@ -1,5 +1,5 @@
 export const SITE = {
-	title: "About Modern Web Development",
+	title: "About Modern Web Development!!",
 	description: "Your website description.",
 	defaultLanguage: "ja",
 };
