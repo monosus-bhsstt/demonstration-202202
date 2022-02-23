@@ -1,0 +1,74 @@
+---
+import { personInfo, IPerson } from "../../data/personApi.ts";
+import BaseLayout from "../../layouts/BaseLayout.astro"
+import DL from '../../components/DL.astro'
+
+export async function getStaticPaths() {
+	const allPerson = personInfo;
+	return allPerson.map((person: IPerson, i: number) => ({
+		params: {
+			person: person.name.replace(" ", "-"),
+		},
+		props: {
+			person,
+			nextPerson: allPerson[i + 1] ?? allPerson[0],
+			prevPerson: allPerson[i - 1] ?? allPerson[allPerson.length - 1],
+		},
+	}));
+}
+const { name, age, gender, address, phone, email, favoriteFruit } =
+	Astro.props.person;
+
+const item = [
+	{title:'age',data:age},
+	{title:'address',data:address},
+	{title:'phone',data:phone},
+	{title:'email',data:email},
+	{title:'Favorite Fruit',data:`${Astro.props.person.gender == "male" ? "He" : "She"} likes ${favoriteFruit}`},
+]
+---
+
+<BaseLayout title={name}>
+	<h1>{name}</h1>
+	<p>About {gender == "male" ? "him" : "her"}</p>
+	<DL list={item} />
+
+	<div class="pagenate">
+		<p>
+			Prev:<a
+				href={`/persons/${Astro.props.prevPerson.name.replace(" ", "-")}/`}
+				>{Astro.props.prevPerson.name}</a>
+		</p>
+
+		<p>
+			Next:<a
+				href={`/persons/${Astro.props.nextPerson.name.replace(" ", "-")}/`}
+				>{Astro.props.nextPerson.name}</a>
+		</p>
+	</div>
+</BaseLayout>
+
+<style>
+	dl {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+	}
+	dt {
+		background-color: #444444;
+		width: 40%;
+	}
+	dd {
+		width: 40%;
+	}
+	dt,
+	dd {
+		padding: 0.5rem;
+		display: flex;
+		align-items: center;
+	}
+	.pagenate {
+		display: flex;
+		justify-content: space-between;
+	}
+</style>

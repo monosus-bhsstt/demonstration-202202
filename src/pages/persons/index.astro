@@ -1,0 +1,18 @@
+---
+import { personNameList } from "../../data/personApi.ts";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+const props = {
+	title:'persons',
+	description:'このページからリンクされている下記30ページは、ローカル内に用意したjsonファイルをもとに一つのファイルからダイナミックにデータ数分のページを生成しています。'
+}
+---
+
+<BaseLayout {...props}>
+	<ul>
+		{personNameList.map((name: string) => (
+			<li>
+				<a href={`/persons/${name.replace(" ", "-")}`}>{name}</a>
+			</li>
+		))}
+	</ul>
+</BaseLayout>

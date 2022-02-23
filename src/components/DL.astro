@@ -1,0 +1,41 @@
+---
+type Item = {
+	title:string
+	data:any
+
+}	
+
+
+const {list} = Astro.props;
+---
+
+<dl>
+{list.map((item:Item) =>(
+	<dt>{item.title}</dt>
+	<dd>{item.data}</dd>
+))}
+</dl>
+
+
+
+<style>
+	dl {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+	}
+	dt {
+		background-color: var(--accent-bg);
+		width: 40%;
+	}
+	dd {
+		width: 40%;
+	}
+	dt,
+	dd {
+		padding: 0.5rem;
+		display: flex;
+		align-items: center;
+	}
+
+</style>

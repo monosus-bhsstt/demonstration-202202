@@ -1,0 +1,55 @@
+---
+import "../styles/simple.css";
+import ThemeToggleButton from "../components/RightSidebar/ThemeToggleButton2.tsx";
+
+const { title,description } = Astro.props;
+---
+
+<html>
+	<head>
+	<meta charset="utf-8">
+		<title> {title}</title>
+		<script>
+	const root = document.documentElement;
+	const theme = localStorage.getItem("theme");
+	if (
+		theme === "dark" ||
+		(!theme && window.matchMedia("(prefers-color-scheme: dark)").matches)
+	) {
+		root.classList.add("theme-dark");
+	} else {
+		root.classList.remove("theme-dark");
+	}
+</script>
+	</head>
+	<body>
+		<!-- Adds a navigation bar to every page. -->
+		<header>
+			<nav>
+				<a href="/">Home</a>
+				<a href="/persons/">Persons</a>
+				<a href="/products/">Products</a>
+			</nav>
+		
+			<h1>Welcome to {title} page!</h1>
+		<p>{description??'ダミーテキスト'}</p>
+
+			<ThemeToggleButton client:visible/>
+		</header>
+		<!-- <header></header> -->
+		<main>
+			<!-- slot: your page content will be injected here. -->
+			<slot />
+		</main>
+		<footer>footer</footer>
+	</body>
+</html>
+
+<style>
+html, body { height: 100%;}
+ 
+body > footer {
+  position: sticky;
+  top: 100vh;
+}
+</style>

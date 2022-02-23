@@ -1,0 +1,96 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import 'charts.css'
+import DL from '../components/DL.astro'
+
+const response = await fetch('https://api.sssapi.app/wG9w9MHWEQPFJ7VzP2bZA');
+const data = await response.json();
+const demo = data[0]
+const item = [
+	{title:'素材について',data:demo.description},
+	{title:'価格',data:demo.price},
+]
+
+const props = {
+	title:'Products',
+	description:'このページはスプレッドシートの内容をAPI化し”node-fetch”を使用し静的ページを作成しています。いわゆるJAMSTACK(Javascript,Api,Markup)構成のシングルページです。<br/><a href="https://docs.google.com/spreadsheets/d/19s90cjT3JuP_CeHPeeX6SHK3QQqO3dZp-toogpS6GRw/edit#gid=0">スプレッドシートリンク</a><br /><a href="https://sssapi.app/">スプレッドシートをapi化できるサービス</a>'
+}
+---
+
+<BaseLayout {...props}>
+	<h2>製品名：{demo.name}</h2>
+<div class="table-wrapper">
+<DL list={item} />
+
+	<p>ベンチマーク</p>
+	<table id="bar-example-14" class="charts-css bar show-labels show-primary-axis show-data-axes">
+  <caption> Bar Example #14 </caption>
+  <thead>
+    <tr>
+      <th scope="col"> Year </th>
+      <th scope="col"> Progress </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row"> 試験A </th>
+      <td style={`--size:${demo['test_a']};`}></td>
+    </tr>
+    <tr>
+      <th scope="row"> 試験B </th>
+      <td style={`--size:${demo['test_b']};`}></td>
+    </tr>
+    <tr>
+      <th scope="row"> 試験C </th>
+      <td style={`--size:${demo['test_c']};`}></td>
+    </tr>
+    <tr>
+      <th scope="row"> 試験D </th>
+      <td style={`--size:${demo['test_d']};`}></td>
+    </tr>
+    <tr>
+      <th scope="row"> 試験EE </th>
+      <td style={`--size:${demo['test_e']};`}></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</BaseLayout>
+
+<style>
+	dl {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+	}
+	dt {
+		background-color: #444444;
+		width: 40%;
+	}
+	dd {
+		width: 40%;
+	}
+	dt,
+	dd {
+		padding: 0.5rem;
+		display: flex;
+		align-items: center;
+	}
+.table-wrapper {
+	height: 300px;
+}
+#bar-example-14 tbody {
+  overflow-y: hidden; /* remove this to see how it works */
+}
+#bar-example-14 tbody th {
+  background-color: var(--accent-bg);
+  z-index: 1;
+}
+#bar-example-14 tbody td {
+  animation: moving-bars 4s linear infinite;
+}
+@keyframes moving-bars {
+  0%  { transform: translateX( -100% ); }
+  15% { transform: translateX( 0 ); }
+}
+</style>
