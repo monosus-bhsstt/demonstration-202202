@@ -6,6 +6,7 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build --experimental-static-build",
+    "vercel:build": "astro build",
     "preview": "astro preview",
     "scan-build": "yarn format && yarn fix:eslint && yarn tsc --noEmit && astro check",
     "fix:eslint": "eslint . --ext ts,tsx --fix",
