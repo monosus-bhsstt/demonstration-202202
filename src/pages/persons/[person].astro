@@ -26,9 +26,10 @@ const item = [
 	{title:'email',data:email},
 	{title:'Favorite Fruit',data:`${Astro.props.person.gender == "male" ? "He" : "She"} likes ${favoriteFruit}`},
 ]
+
 ---
 
-<BaseLayout title={name}>
+<BaseLayout title={name} description={`${name}のデータを取得し生成したページです。`}>
 	<h1>{name}</h1>
 	<p>About {gender == "male" ? "him" : "her"}</p>
 	<DL list={item} />
